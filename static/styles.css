@@ -1,0 +1,594 @@
+/* ================================
+   AI RESUME ANALYZER - STYLES
+   ================================ */
+
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* ================================
+   NAVBAR
+   ================================ */
+
+nav {
+    width: 100%;
+    background: #ffffff;
+    padding: 16px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+nav h2 {
+    color: #4f46e5;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #4f46e5;
+}
+
+/* ================================
+   HERO SECTION
+   ================================ */
+
+.hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #eef2ff, #ffffff);
+}
+
+.hero-content {
+    max-width: 850px;
+    animation: fadeUp 0.8s ease;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.hero h1 span {
+    color: #4f46e5;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    color: #6b7280;
+}
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+.btn {
+    display: inline-block;
+    padding: 13px 25px;
+    margin-top: 25px;
+    border-radius: 10px;
+    background: #4f46e5;
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.25);
+}
+
+.btn:hover {
+    background: #4338ca;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ================================
+   GENERAL SECTIONS
+   ================================ */
+
+section {
+    padding: 80px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #6b7280;
+}
+
+/* ================================
+   CARDS
+   ================================ */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.35s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: #c7d2fe;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.card p {
+    color: #6b7280;
+}
+
+/* ================================
+   RESUME UPLOAD
+   ================================ */
+
+.upload-container {
+    max-width: 750px;
+    margin: auto;
+}
+
+.upload-box {
+    background: #ffffff;
+    border: 2px dashed #a5b4fc;
+    border-radius: 18px;
+    padding: 55px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-box:hover {
+    background: #eef2ff;
+    border-color: #4f46e5;
+    transform: scale(1.01);
+}
+
+.upload-box h3 {
+    margin-bottom: 10px;
+}
+
+.upload-box p {
+    color: #6b7280;
+}
+
+/* ================================
+   INPUTS
+   ================================ */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 13px 15px;
+    margin-top: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+    font-size: 15px;
+    transition: 0.3s ease;
+    background: #ffffff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+label {
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ================================
+   ANALYSIS RESULT
+   ================================ */
+
+.result-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.result-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 25px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.05);
+    transition: 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-4px);
+}
+
+/* ================================
+   SCORE
+   ================================ */
+
+.score-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.score {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(
+        #4f46e5 0deg,
+        #4f46e5 270deg,
+        #e5e7eb 270deg,
+        #e5e7eb 360deg
+    );
+    position: relative;
+}
+
+.score::before {
+    content: "";
+    position: absolute;
+    width: 115px;
+    height: 115px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.score span {
+    position: relative;
+    font-size: 32px;
+    font-weight: 700;
+    color: #4f46e5;
+}
+
+/* ================================
+   SKILLS
+   ================================ */
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill {
+    padding: 8px 14px;
+    background: #eef2ff;
+    color: #4338ca;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.skill:hover {
+    background: #4f46e5;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ================================
+   PROGRESS BAR
+   ================================ */
+
+.progress-container {
+    margin: 20px 0;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.progress {
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 75%;
+    background: #4f46e5;
+    border-radius: 20px;
+    animation: progressAnimation 1.2s ease;
+}
+
+/* ================================
+   JOB DESCRIPTION
+   ================================ */
+
+.jd-box {
+    max-width: 850px;
+    margin: auto;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* ================================
+   ALERTS
+   ================================ */
+
+.alert {
+    padding: 15px 18px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #ecfdf5;
+    color: #047857;
+    border-left: 4px solid #10b981;
+}
+
+.alert-warning {
+    background: #fffbeb;
+    color: #b45309;
+    border-left: 4px solid #f59e0b;
+}
+
+.alert-danger {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-left: 4px solid #ef4444;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+footer {
+    background: #111827;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer p {
+    color: #9ca3af;
+}
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progressAnimation {
+    from {
+        width: 0;
+    }
+}
+
+/* ================================
+   RESPONSIVE - TABLET
+   ================================ */
+
+@media (max-width: 768px) {
+
+    nav {
+        padding: 15px 5%;
+    }
+
+    nav ul {
+        gap: 15px;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+    .hero {
+        min-height: 75vh;
+        padding: 60px 20px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ================================
+   RESPONSIVE - MOBILE
+   ================================ */
+
+@media (max-width: 550px) {
+
+    nav {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav h2 {
+        font-size: 21px;
+    }
+
+    .hero {
+        min-height: 70vh;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    section {
+        padding: 50px 20px;
+    }
+
+    .section-title h2 {
+        font-size: 27px;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 25px;
+    }
+
+    .upload-box {
+        padding: 40px 20px;
+    }
+
+    .jd-box,
+    .result-card {
+        padding: 22px;
+    }
+
+    .score {
+        width: 130px;
+        height: 130px;
+    }
+
+    .score::before {
+        width: 100px;
+        height: 100px;
+    }
+
+    .score span {
+        font-size: 27px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* ================================
+   REDUCED MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

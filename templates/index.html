@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f4f6f9;
+            color: #222;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+
+        header p {
+            color: #d1d5db;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #ccc;
+            border-radius: 6px;
+
+            background: #fafafa;
+        }
+
+
+        textarea {
+            width: 100%;
+            min-height: 220px;
+
+            padding: 15px;
+
+            border: 1px solid #ccc;
+            border-radius: 6px;
+
+            resize: vertical;
+
+            font-size: 15px;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 6px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* ================= ERROR ================= */
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+
+            padding: 15px;
+
+            border-radius: 6px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= SCORE ================= */
+
+        .scores {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .score-card {
+            background: #f8fafc;
+
+            padding: 25px 10px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .score-card h3 {
+            margin-bottom: 12px;
+
+            font-size: 14px;
+
+            color: #4b5563;
+        }
+
+
+        .score {
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+
+        /* ================= INFO GRID ================= */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .info-box {
+            background: #f8fafc;
+
+            padding: 18px;
+
+            border-radius: 8px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .info-box strong {
+            display: block;
+
+            color: #4b5563;
+
+            margin-bottom: 7px;
+        }
+
+
+        .info-box span {
+            word-break: break-word;
+        }
+
+
+        /* ================= LIST ================= */
+
+        .info-list {
+            margin-left: 20px;
+        }
+
+
+        .info-list li {
+            margin-bottom: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================= SKILLS ================= */
+
+        .skills {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        .skill {
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            background: #e5e7eb;
+
+            font-size: 14px;
+        }
+
+
+        .matching {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+
+        .missing {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+
+        /* ================= KEYWORD ================= */
+
+        .keyword-summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .keyword-box {
+            padding: 20px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .keyword-box h3 {
+            font-size: 15px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .keyword-number {
+            font-size: 25px;
+
+            font-weight: bold;
+        }
+
+
+        .found-number {
+            color: #16a34a;
+        }
+
+
+        .missing-number {
+            color: #dc2626;
+        }
+
+
+        /* ================= RECOMMENDATION ================= */
+
+        .recommendation {
+            padding: 20px;
+
+            background: #eff6ff;
+
+            border-radius: 10px;
+
+            color: #1e3a8a;
+
+            line-height: 1.6;
+        }
+
+
+        .recommendation ul {
+            margin-left: 20px;
+        }
+
+
+        .recommendation li {
+            margin-bottom: 8px;
+        }
+
+
+        /* ================= IMPROVEMENT ================= */
+
+        .improvements {
+            background: #fff7ed;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            border-left: 5px solid #f97316;
+        }
+
+
+        .improvements ul {
+            margin-left: 20px;
+        }
+
+
+        .improvements li {
+            margin-bottom: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #666;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .scores {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .keyword-summary {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .scores {
+                grid-template-columns: 1fr;
+            }
+
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .container {
+                width: 95%;
+            }
+
+
+            header h1 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <h1>AI Resume Analyzer</h1>
+
+    <p>
+        NLP + Machine Learning + ATS Resume Analysis
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- =================================================
+         ERROR
+    ================================================== -->
+
+    {% if error %}
+
+    <div class="error">
+
+        <strong>Error:</strong>
+
+        {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         UPLOAD FORM
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Analyze Your Resume</h2>
+
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+
+            <div class="form-group">
+
+                <label for="resume">
+
+                    Upload Resume (PDF)
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="resume"
+                    name="resume"
+                    accept=".pdf"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="job_description">
+
+                    Job Description
+
+                </label>
+
+
+                <textarea
+                    id="job_description"
+                    name="job_description"
+                    placeholder="Paste the complete job description here..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button type="submit">
+
+                Analyze Resume
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+    {% if result %}
+
+
+    <!-- =================================================
+         RESUME INFORMATION
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Resume Information</h2>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-box">
+
+                <strong>Email</strong>
+
+                <span>
+
+                    {{ result.email
+                       if result.email
+                       else "Not detected" }}
+
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>Phone</strong>
+
+                <span>
+
+                    {{ result.phone
+                       if result.phone
+                       else "Not detected" }}
+
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>LinkedIn</strong>
+
+                <span>
+
+                    {{ result.linkedin
+                       if result.linkedin
+                       else "Not detected" }}
+
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>GitHub</strong>
+
+                <span>
+
+                    {{ result.github
+                       if result.github
+                       else "Not detected" }}
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         EDUCATION
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Education</h2>
+
+
+        {% if result.education %}
+
+        <ul class="info-list">
+
+            {% for item in result.education %}
+
+            <li>
+
+                {{ item }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+
+        {% else %}
+
+        <p>Education information not detected.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =================================================
+         EXPERIENCE
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Experience</h2>
+
+
+        {% if result.experience %}
+
+        <ul class="info-list">
+
+            {% for item in result.experience %}
+
+            <li>
+
+                {{ item }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+
+        {% else %}
+
+        <p>Experience information not detected.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =================================================
+         PROJECTS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Projects</h2>
+
+
+        {% if result.projects %}
+
+        <ul class="info-list">
+
+            {% for item in result.projects %}
+
+            <li>
+
+                {{ item }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+
+        {% else %}
+
+        <p>Project information not detected.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =================================================
+         SCORE DASHBOARD
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Analysis Results</h2>
+
+
+        <div class="scores">
+
+
+            <div class="score-card">
+
+                <h3>Skill Match</h3>
+
+                <div class="score">
+
+                    {{ result.skill_match }}%
+
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>NLP Similarity</h3>
+
+                <div class="score">
+
+                    {{ result.similarity }}%
+
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>ATS Score</h3>
+
+                <div class="score">
+
+                    {{ result.ats_score }}%
+
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>Keyword Match</h3>
+
+                <div class="score">
+
+                    {{ result.keyword_score }}%
+
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>Overall Match</h3>
+
+                <div class="score">
+
+                    {{ result.overall_score }}%
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         KEYWORD ANALYSIS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>ATS Keyword Analysis</h2>
+
+
+        <div class="keyword-summary">
+
+
+            <div class="keyword-box">
+
+                <h3>Total Keywords</h3>
+
+                <div class="keyword-number">
+
+                    {{ result.keywords|length }}
+
+                </div>
+
+            </div>
+
+
+            <div class="keyword-box">
+
+                <h3>Found Keywords</h3>
+
+                <div class="keyword-number found-number">
+
+                    {{ result.found_keywords|length }}
+
+                </div>
+
+            </div>
+
+
+            <div class="keyword-box">
+
+                <h3>Missing Keywords</h3>
+
+                <div class="keyword-number missing-number">
+
+                    {{ result.missing_keywords|length }}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <h3>Found Keywords</h3>
+
+
+        <div class="skills">
+
+            {% for keyword in result.found_keywords %}
+
+            <span class="skill matching">
+
+                ✓ {{ keyword }}
+
+            </span>
+
+            {% endfor %}
+
+        </div>
+
+
+        <br>
+
+
+        <h3>Missing Keywords</h3>
+
+
+        <div class="skills">
+
+            {% for keyword in result.missing_keywords %}
+
+            <span class="skill missing">
+
+                ✗ {{ keyword }}
+
+            </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MATCHING SKILLS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Matching Skills</h2>
+
+
+        <div class="skills">
+
+
+            {% for skill in result.matching_skills %}
+
+            <span class="skill matching">
+
+                ✓ {{ skill }}
+
+            </span>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MISSING SKILLS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Missing Skills</h2>
+
+
+        <div class="skills">
+
+
+            {% for skill in result.missing_skills %}
+
+            <span class="skill missing">
+
+                ✗ {{ skill }}
+
+            </span>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         RESUME SKILLS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Detected Resume Skills</h2>
+
+
+        <div class="skills">
+
+
+            {% for skill in result.resume_skills %}
+
+            <span class="skill">
+
+                {{ skill }}
+
+            </span>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         REQUIRED SKILLS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Required Job Skills</h2>
+
+
+        <div class="skills">
+
+
+            {% for skill in result.required_skills %}
+
+            <span class="skill">
+
+                {{ skill }}
+
+            </span>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ATS SECTIONS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>ATS Resume Sections</h2>
+
+
+        <div class="skills">
+
+
+            {% for section, exists in result.sections.items() %}
+
+
+                {% if exists %}
+
+                <span class="skill matching">
+
+                    ✓ {{ section|capitalize }}
+
+                </span>
+
+
+                {% else %}
+
+                <span class="skill missing">
+
+                    ✗ {{ section|capitalize }}
+
+                </span>
+
+                {% endif %}
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ATS SUGGESTIONS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>ATS Suggestions</h2>
+
+
+        <div class="recommendation">
+
+
+            {% if result.ats_suggestions %}
+
+            <ul>
+
+                {% for suggestion in result.ats_suggestions %}
+
+                <li>
+
+                    {{ suggestion }}
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+            {% else %}
+
+            <p>
+
+                No major ATS issues detected.
+
+            </p>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         IMPROVEMENT SUGGESTIONS
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Resume Improvement Suggestions</h2>
+
+
+        <div class="improvements">
+
+
+            {% if result.improvement_suggestions %}
+
+            <ul>
+
+                {% for suggestion
+                   in result.improvement_suggestions %}
+
+                <li>
+
+                    {{ suggestion }}
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+            {% else %}
+
+            <p>
+
+                No additional improvement suggestions.
+
+            </p>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FINAL RECOMMENDATION
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Final Recommendation</h2>
+
+
+        <div class="recommendation">
+
+            <strong>
+
+                {{ result.recommendation }}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+
+        AI Resume Analyzer |
+
+        Python |
+
+        NLP |
+
+        Machine Learning |
+
+        Flask |
+
+        ATS
+
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
